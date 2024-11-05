@@ -15,9 +15,37 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
-        <!-- Contents -->
-        
+
+        <!-- First row contents -->
+        <VerticalStackLayout>
+            <Label
+                Text="Errores: 0 de 6"
+                HorizontalOptions="Center"/>
+            <Image
+                Source="img0.jpg"
+                WidthRequest="100"
+                HeightRequest="250"/> <!-- DO WE REALLY NEED THIS? --> 
+            <Label Text="_______________"/>
+            <Label Text="Perdiste!"/>
+            <Button Text="Reiniciar"/>
+        </VerticalStackLayout>
     </Grid>
+    
+    <!-- Second row contents -->
+    <FlexLayout
+        Grid.Row="1"
+        Wrap="Wrap"
+        JustifyContent="SpaceEvenly"
+        BindableLayout.ItemsSource="{Binding Letras}">
+
+        <BindableLayout.ItemTemplate>
+            <DataTemplate>
+                <Button
+                Text="{Binding .}"
+                HeightRequest="50"
+                WidthRequest="50"/>
+            </DataTemplate>
+        </BindableLayout.ItemTemplate>
+    </FlexLayout>
 
 </ContentPage>

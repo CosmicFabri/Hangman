@@ -1,24 +1,59 @@
-﻿namespace Hangman
+﻿using System.ComponentModel;
+
+namespace Hangman
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
-        int count = 0;
+        // Words list
+        List<string> words = new List<string>
+        {"Peru", "Slipknot", "Japan", "Guitar",
+        "Manny", "Nube", "Cassandra", "Tongo"};
+
+        // Characters list
+        List<char> characters = new List<char>();
+        //{'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
+        //'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z',
+        //'x', 'c', 'v', 'b', 'n', 'm'};
+
+        private string spotlight = "";
+        public string Spotlight
+        {
+            get => spotlight;
+            set
+            {
+                spotlight = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<char> letras = new List<char>();
+        public List<char> Letras
+        {
+            get => Letras;
+            set
+            {
+                letras = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = this;
+            string respuesta = RandomWord();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        // Select a random word from the list
+        private string RandomWord()
         {
-            count++;
+            Random rnd = new Random();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            // Index for a word in the list
+            int index = rnd.Next() % words.Count;
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            // Return the random word
+            return words[index];
         }
     }
 
